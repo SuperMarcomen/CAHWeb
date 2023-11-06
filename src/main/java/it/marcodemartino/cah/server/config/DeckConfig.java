@@ -1,7 +1,8 @@
 package it.marcodemartino.cah.server.config;
 
-import it.marcodemartino.cah.server.game.cards.DeckBuilder;
-import it.marcodemartino.cah.server.game.cards.DiskDeckBuilder;
+import it.marcodemartino.cah.server.game.cards.deck.builder.DiskDeckBuilder;
+import it.marcodemartino.cah.server.game.cards.deck.builder.DeckBuilder;
+import it.marcodemartino.cah.server.game.cards.deck.DeckRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +13,11 @@ public class DeckConfig {
 
     @Bean
     public DeckBuilder getDeckBuilder() {
-        return new DiskDeckBuilder(Paths.get("cah-cards-full.json"));
+        return new DiskDeckBuilder(Paths.get("cards.json"));
+    }
+
+    @Bean
+    public DeckRepository getDeckRepository(DeckBuilder deckBuilder) {
+        return deckBuilder.build();
     }
 }

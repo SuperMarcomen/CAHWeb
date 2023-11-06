@@ -1,17 +1,15 @@
-package it.marcodemartino.cah.server.game.cards;
+package it.marcodemartino.cah.server.game.cards.deck.builder;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import it.marcodemartino.cah.server.game.cards.deck.DeckRepository;
 import it.marcodemartino.cah.server.json.GsonInstance;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.Map;
 
 public class DiskDeckBuilder implements DeckBuilder {
 
@@ -25,17 +23,16 @@ public class DiskDeckBuilder implements DeckBuilder {
     }
 
     @Override
-    public Map<String, Deck> build() {
+    public DeckRepository build() {
         try {
-            String content = new String(Files.readAllBytes(path));
-
-            Type deckMapType = new TypeToken<Map<String, Deck>>() {}.getType();
-            Map<String, Deck> deckMap = gson.fromJson(content, deckMapType);
-            logger.info("Loaded {} decks from disk", deckMap.values().size());
-            return deckMap;
+            String content = Files.readString(path);
+            DeckRepository deckRepository = gson.fromJson(content, DeckRepository.class);
+            deckRepository.initDeckInfos();
+            logger.info("Loaded {} decks from disk", deckRepository.getDecks().size());
+            return deckRepository;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Collections.emptyMap();
+        return new DeckRepository(Collections.emptyMap(), Collections.emptyMap());
     }
 }

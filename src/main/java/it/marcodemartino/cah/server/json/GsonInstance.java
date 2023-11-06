@@ -12,6 +12,7 @@ public class GsonInstance {
     public static Gson get() {
         if (gson == null) {
             GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.disableHtmlEscaping();
             gsonBuilder.excludeFieldsWithModifiers(Modifier.TRANSIENT);
             gson = gsonBuilder.create();
         }
