@@ -8,11 +8,13 @@ import java.util.*;
 public class DeckRepository {
 
     private final Map<Number, String> idToCardText;
+    private final Map<Number, Byte> idToNumberOfArguments;
     private final Map<Number, Deck> decks;
     private List<DeckInfo> deckInfos;
-    
-    public DeckRepository(Map<Number, String> idToCardText, Map<Number, Deck> decks) {
+
+    public DeckRepository(Map<Number, String> idToCardText, Map<Number, Byte> idToNumberOfArguments, Map<Number, Deck> decks) {
         this.idToCardText = idToCardText;
+        this.idToNumberOfArguments = idToNumberOfArguments;
         this.decks = decks;
     }
 

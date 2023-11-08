@@ -12,4 +12,12 @@ public class Deck {
     private final short startBlackCardsId;
     private final short endAllCardsId;
     private final boolean official;
+
+    public int getWhiteCardAmount() {
+        return startBlackCardsId - startWhiteCardsId + 1;
+    }
+
+    public int getBlackCardAmount() {
+        return endAllCardsId - startBlackCardsId + 1;
+    }
 }

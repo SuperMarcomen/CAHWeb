@@ -33,6 +33,6 @@ public class DiskDeckBuilder implements DeckBuilder {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new DeckRepository(Collections.emptyMap(), Collections.emptyMap());
+        return new DeckRepository(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
     }
 }
