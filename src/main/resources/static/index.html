@@ -3,10 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Test</title>
+
+    <script src="js/stomp.min.js"></script>
+    <script src="js/sock.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/communication.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script type="text/javascript" src="stomp.min.js"></script>
-    <script type="text/javascript" src="sock.min.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+<h1 id="title">Cards Against Humanity</h1>
+<div class="name_input_container">
+    <label for="name_input">Enter your name</label>
+    <input type="text" id="name_input" name="name_input">
+</div>
+
+<div class="start_join_buttons_container">
+    <button class="button" id="start_button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 112" version="1.1">
+            <path style=" stroke:none;fill-rule:nonzero;fill:rgb(16.470588%,16.078431%,16.078431%);fill-opacity:1;" d="M 0.429688 9.695312 C 0.429688 3.148438 7.574219 -0.945312 13.289062 2.328125 L 94.714844 48.984375 C 100.429688 52.257812 100.429688 60.445312 94.714844 63.71875 L 13.289062 110.375 C 7.574219 113.648438 0.429688 109.554688 0.429688 103.007812 Z M 0.429688 9.695312 "/>
+        </svg>
+        Create a new game
+    </button>
+
+    <button class="button" id="join_button">
+        <svg width="100px" height="100px" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="39.1892" width="21.6216" height="100" rx="8" fill="#2A2929"/>
+            <rect y="60.8108" width="21.6216" height="100" rx="8" transform="rotate(-90 0 60.8108)" fill="#2A2929"/>
+        </svg>
+        Join a game
+    </button>
+</div>
 </body>
 </html>

@@ -1,0 +1,180 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+:root {
+    --clr-light: #DDEAF5;
+    --clr-accent: #0074B7;
+    --clr-dark: #003B73;
+    --clr-shadow: rgba(5, 67, 94, 0.15);
+}
+
+* {
+    transition: 0.1s ease-in-out;
+}
+
+:root {
+    --dark-gray: #2A2929;
+    --light-gray: #C8C8C8;
+    --white: #ECECEC;
+    --black: #050505;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("fonts/Lato-Regular.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("fonts/Lato-Light.ttf");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("fonts/Lato-Bold.ttf");
+    font-weight: bold;
+}
+
+#title {
+    color: var(--white);
+    font-size: 3em;
+}
+
+div {
+    display: inline-block;
+}
+
+body {
+    background-color: var(--dark-gray);
+    padding: 2em;
+    font-family: "Lato", sans-serif;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name_input_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+label {
+    color: var(--white);
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+input {
+    background-color: transparent;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: var(--white);
+    color: var(--light-gray);
+    font-weight: 300;
+    font-size: 1.5em;
+}
+
+.start_join_buttons_container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 30%;
+}
+
+button > svg {
+    width: 15%;
+    height: auto;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    padding: 1.5em;
+    gap: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 1em;
+    border: none;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}

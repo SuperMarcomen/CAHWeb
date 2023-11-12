@@ -3,6 +3,7 @@ package it.marcodemartino.cah.server.config;
 import it.marcodemartino.cah.server.game.cards.deck.builder.DiskDeckBuilder;
 import it.marcodemartino.cah.server.game.cards.deck.builder.DeckBuilder;
 import it.marcodemartino.cah.server.game.cards.deck.DeckRepository;
+import it.marcodemartino.cah.server.users.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,5 +20,10 @@ public class DeckConfig {
     @Bean
     public DeckRepository getDeckRepository(DeckBuilder deckBuilder) {
         return deckBuilder.build();
+    }
+
+    @Bean
+    public UserService getUserService() {
+        return new UserService();
     }
 }

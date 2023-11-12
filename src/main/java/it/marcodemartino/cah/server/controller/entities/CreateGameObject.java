@@ -13,5 +13,5 @@ public class CreateGameObject {
     @JsonProperty("player_name")
     private final String playerName;
     @JsonProperty("chosen_decks")
-    private final List<String> chosenDecks;
+    private final List<Short> chosenDecks;
 }
