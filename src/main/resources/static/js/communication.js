@@ -3,8 +3,6 @@
 var stompClient = null;
 var username = "Marco";
 
-connect();
-
 export function connect() {
     const socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
@@ -15,20 +13,15 @@ function onConnect() {
     stompClient.subscribe("/user/queue/errors", function(message) {
         alert("Error " + message.body);
     });
-
-    stompClient.subscribe("/user/queue/uuid", function(message) {
-        alert("Message " + message.body);
-    });
-
-    stompClient.send('/game/login', {}, JSON.stringify({ username: username }));
-
-    // temp
 }
 
-function loginWithUsername(username) {
+export function loginWithUsername(username) {
+    stompClient.subscribe("/user/queue/uuid", function(message) {
+        stompClient.unsubscribe("/user/queue/uuid");
+        sessionStorage.setItem("uuid", message);
+        sessionStorage.setItem("username", username);
+    });
     stompClient.send('/game/login', {}, JSON.stringify({ username: username }));
-    //stompClient.uns('/game/login', {}, JSON.stringify({ username: username }));
-
 }
 
 function onError() {

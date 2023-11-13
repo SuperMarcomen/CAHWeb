@@ -1,6 +1,5 @@
 package it.marcodemartino.cah.server.controller;
 
-import it.marcodemartino.cah.server.controller.entities.LoginObject;
 import it.marcodemartino.cah.server.users.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +22,9 @@ public class ChatController {
 
     @MessageMapping("/login")
     @SendToUser("/queue/uuid")
-    public String processMessageFromClient(@Payload LoginObject loginObject, SimpMessageHeaderAccessor headerAccessor) {
-        UUID uuid = userService.addUser(loginObject.getUsername());
+    public String processMessageFromClient(@Payload String username, SimpMessageHeaderAccessor headerAccessor) {
+        UUID uuid = userService.addUser(username);
+        System.out.println(username);
         headerAccessor.getSessionAttributes().put("uuid", uuid.toString());
         return uuid.toString();
     }
