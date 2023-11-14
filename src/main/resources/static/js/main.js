@@ -16,4 +16,8 @@ createGameButton.onclick = function () {
     chooseDecksPage.style.display = 'flex';
     init();
 }
+
 connect();
+
+const urlParams = new URLSearchParams(window.location.search);
+const gameUUID = urlParams.get("game_uuid");

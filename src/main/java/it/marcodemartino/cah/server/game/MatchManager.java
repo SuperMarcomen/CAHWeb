@@ -1,6 +1,6 @@
 package it.marcodemartino.cah.server.game;
 
-import it.marcodemartino.cah.server.controller.entities.CreateGameObject;
+import it.marcodemartino.cah.server.controller.entities.StartGameObject;
 import it.marcodemartino.cah.server.game.cards.deck.Deck;
 import it.marcodemartino.cah.server.game.cards.deck.DeckRepository;
 import it.marcodemartino.cah.server.game.collections.RandomArrayList;
@@ -18,13 +18,17 @@ public class MatchManager {
         uuidToMatch = new HashMap<>();
     }
 
-    public void createMatch(CreateGameObject createGameObject) {
-        RandomArrayList<Number> whiteCardsIds = new RandomArrayList<>();
-        RandomArrayList<Number> blackCardsIds = new RandomArrayList<>();
-        fillCardIds(createGameObject.getChosenDecks(), whiteCardsIds, blackCardsIds);
-        Match match = new Match(whiteCardsIds, blackCardsIds);
-        UUID uuid = UUID.randomUUID();
-        uuidToMatch.put(uuid, match);
+    public UUID createMatch(UUID playerUUID) {
+        Match match = new Match();
+        match.addPlayer(playerUUID);
+        UUID gameUUID = UUID.randomUUID();
+        uuidToMatch.put(gameUUID, match);
+        return gameUUID;
+    }
+
+    public void startMatch(StartGameObject startGameObject) {
+        Match match = uuidToMatch.get(startGameObject.getGameUUID());
+        fillCardIds(startGameObject.getChosenDecks(), match.getWhiteCardsIds(), match.getBlackCardsIds());
     }
 
     private void fillCardIds(List<Short> deckIds, RandomArrayList<Number> whiteCardsIds, RandomArrayList<Number> blackCardsIds) {

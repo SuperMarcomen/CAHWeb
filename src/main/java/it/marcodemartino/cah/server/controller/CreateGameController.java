@@ -1,6 +1,6 @@
 package it.marcodemartino.cah.server.controller;
 
-import it.marcodemartino.cah.server.controller.entities.CreateGameObject;
+import it.marcodemartino.cah.server.controller.entities.StartGameObject;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 public class CreateGameController {
 
     @PostMapping("/create_game")
-    public String createGame(@RequestBody CreateGameObject createGameObject) {
-        System.out.println(createGameObject.getPlayerName());
-        System.out.println(createGameObject.getChosenDecks());
+    public String createGame(@RequestBody StartGameObject startGameObject) {
+        System.out.println(startGameObject.getChosenDecks());
         return "Ok";
     }
 }

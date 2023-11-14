@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
-public class CreateGameObject {
+public class StartGameObject {
 
-    @JsonProperty("player_name")
-    private final String playerName;
+    @JsonProperty("game_uuid")
+    private final UUID gameUUID;
     @JsonProperty("chosen_decks")
     private final List<Short> chosenDecks;
 }

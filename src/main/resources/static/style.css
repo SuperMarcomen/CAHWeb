@@ -207,3 +207,8 @@ input[type="checkbox"] {
     border-radius: 2pt;
     box-shadow: 0 0 0 1pt var(--light-gray);
 }
+
+#game_id_text {
+    font-size: 1rem;
+    font-weight: bold;
+}

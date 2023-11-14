@@ -1,5 +1,6 @@
 package it.marcodemartino.cah.server.config;
 
+import it.marcodemartino.cah.server.game.MatchManager;
 import it.marcodemartino.cah.server.game.cards.deck.builder.DiskDeckBuilder;
 import it.marcodemartino.cah.server.game.cards.deck.builder.DeckBuilder;
 import it.marcodemartino.cah.server.game.cards.deck.DeckRepository;
@@ -25,5 +26,10 @@ public class DeckConfig {
     @Bean
     public UserService getUserService() {
         return new UserService();
+    }
+
+    @Bean
+    public MatchManager getMatchManager(DeckRepository deckRepository) {
+        return new MatchManager(deckRepository);
     }
 }
