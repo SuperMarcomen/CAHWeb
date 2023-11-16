@@ -5,9 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class ChoosenDeckObject {
+public class JoinRequest {
 
-    private final String deckName;
-    private final boolean selected;
+    private final String username;
     private final String gameUUID;
 }

@@ -1,11 +1,14 @@
 import {broadcastDeckSelection} from "./communication.js";
+import {gameUUID} from "./main.js";
 
 const decksForm = document.getElementById("choose_decks_form");
 const gameIdText = document.getElementById("game_id_text");
 
 export function init() {
     const url = new URL(window.location.href)
-    url.searchParams.append("game_uuid", sessionStorage.getItem("game_uuid"));
+    if (!gameUUID) {
+        url.searchParams.append("game_uuid", sessionStorage.getItem("game_uuid"));
+    }
     gameIdText.textContent = "Share this link with your friends to join the game! " + url.href;
 
     fetch("/get_decks")

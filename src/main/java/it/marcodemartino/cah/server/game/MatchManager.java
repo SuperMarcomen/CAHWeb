@@ -11,11 +11,29 @@ import java.util.stream.IntStream;
 public class MatchManager {
 
     private final Map<UUID, Match> uuidToMatch;
+    private final Map<UUID, List<String>> deckNamesForMatches;
     private final DeckRepository deckRepository;
 
     public MatchManager(DeckRepository deckRepository) {
         this.deckRepository = deckRepository;
         uuidToMatch = new HashMap<>();
+        deckNamesForMatches = new HashMap<>();
+    }
+
+    public List<String> getDecksForMatch(UUID gameUUID) {
+        return deckNamesForMatches.get(gameUUID);
+    }
+
+    public void addDeckToMatch(UUID mathUUID, String deckName) {
+        deckNamesForMatches.get(mathUUID).add(deckName);
+    }
+
+    public void removeDeckFromMatch(UUID mathUUID, String deckName) {
+        deckNamesForMatches.get(mathUUID).remove(deckName);
+    }
+
+    public Match getMatchFromId(UUID matchUUID) {
+        return uuidToMatch.get(matchUUID);
     }
 
     public UUID createMatch(UUID playerUUID) {
@@ -23,6 +41,7 @@ public class MatchManager {
         match.addPlayer(playerUUID);
         UUID gameUUID = UUID.randomUUID();
         uuidToMatch.put(gameUUID, match);
+        deckNamesForMatches.put(gameUUID, new ArrayList<>());
         return gameUUID;
     }
 

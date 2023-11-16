@@ -115,7 +115,6 @@ select {
 }
 
 body {
-    padding: 2rem;
     background-color: var(--dark-gray);
     color: var(--white);
     font-family: "Lato", sans-serif;
@@ -172,6 +171,9 @@ button > svg {
 
 section {
     width: 100%;
+    min-height: 100vh;
+    padding: 2rem;
+    gap: 2rem;
     justify-content: space-evenly;
     display: flex;
     flex-direction: column;
