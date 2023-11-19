@@ -1,12 +1,17 @@
 import {broadcastDeckSelection} from "./communication.js";
-import {gameUUID} from "./main.js";
 
 const decksForm = document.getElementById("choose_decks_form");
 const gameIdText = document.getElementById("game_id_text");
+var selectedDecks;
+
+export function setSelectedDecks(newSelectedDecks) {
+    selectedDecks = newSelectedDecks;
+}
 
 export function init() {
-    const url = new URL(window.location.href)
-    if (!gameUUID) {
+    const url = new URL(window.location.href);
+    const urlParams = new URLSearchParams(window.location.search);
+    if (!urlParams.get("game_uuid")) {
         url.searchParams.append("game_uuid", sessionStorage.getItem("game_uuid"));
     }
     gameIdText.textContent = "Share this link with your friends to join the game! " + url.href;
@@ -39,6 +44,12 @@ export function init() {
                 cloneContainer.appendChild(label);
 
                 decksForm.appendChild(cloneContainer);
+            }
+
+            for (let deckName of selectedDecks) {
+                console.log(deckName);
+                const checkBox = document.getElementById(deckName);
+                checkBox.checked = true;
             }
         });
 }

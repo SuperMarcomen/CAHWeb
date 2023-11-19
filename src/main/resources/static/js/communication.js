@@ -2,6 +2,7 @@
 
 import {init} from "./choose_decks.js";
 import {gameUUID, setGameUUID} from "./main.js";
+import {setSelectedDecks} from "./choose_decks.js";
 
 let stompClient = null;
 
@@ -26,6 +27,7 @@ export function joinGameWithUsername(username) {
     stompClient.send('/game/join', {}, JSON.stringify({ username: username, gameUUID: gameUUID}));
     return stompClient.subscribe("/user/queue/join_result", function(message) {
         const {successful, playerUUID, selectedDecks} = JSON.parse(message.body);
+        setSelectedDecks(selectedDecks);
         stompClient.unsubscribe("/user/queue/join_result");
 
         if (!successful) {
@@ -33,19 +35,15 @@ export function joinGameWithUsername(username) {
             return false;
         }
 
-        for (let deckName in selectedDecks) {
-            const checkBox = document.getElementById(deckName);
-            checkBox.checked = true;
-        }
         sessionStorage.setItem("player_uuid", playerUUID);
         sessionStorage.setItem("username", username);
         const gameUUID = sessionStorage.getItem("game_uuid");
-
         stompClient.subscribe('/queue/choose_decks/game_id/' + gameUUID, function (response) {
             const {deckName, selected} = JSON.parse(response.body);
             const checkBox = document.getElementById(deckName);
             checkBox.checked = selected;
         });
+
         init();
         return true;
     });
@@ -54,14 +52,14 @@ export function joinGameWithUsername(username) {
 export function loginWithUsername(username) {
     stompClient.subscribe("/user/queue/uuid", function(message) {
         console.log(JSON.parse(message.body));
-        const {playerUUID, newGameUUID, selectedDecks} = JSON.parse(message.body);
+        const {playerUUID, gameUUID} = JSON.parse(message.body);
         stompClient.unsubscribe("/user/queue/uuid");
         sessionStorage.setItem("player_uuid", playerUUID);
-        sessionStorage.setItem("game_uuid", newGameUUID);
+        sessionStorage.setItem("game_uuid", gameUUID);
         sessionStorage.setItem("username", username);
-        setGameUUID(newGameUUID);
+        setGameUUID(gameUUID);
 
-        stompClient.subscribe('/queue/choose_decks/game_id/' + newGameUUID, function (response) {
+        stompClient.subscribe('/queue/choose_decks/game_id/' + gameUUID, function (response) {
             const {deckName, selected} = JSON.parse(response.body);
             const checkBox = document.getElementById(deckName);
             checkBox.checked = selected;
