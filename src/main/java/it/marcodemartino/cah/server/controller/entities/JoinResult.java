@@ -12,5 +12,5 @@ public class JoinResult {
 
     private final boolean successful;
     private final UUID userUUID;
-    private final List<String> selectedDecks;
+    private final List<Number> selectedDecks;
 }

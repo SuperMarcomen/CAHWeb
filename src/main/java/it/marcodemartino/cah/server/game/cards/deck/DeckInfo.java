@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class DeckInfo {
 
+    private final Number id;
     private final String name;
     private final short whiteCardsAmount;
     private final short blackCardsAmount;

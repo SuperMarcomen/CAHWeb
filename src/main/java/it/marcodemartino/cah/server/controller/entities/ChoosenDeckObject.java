@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class ChoosenDeckObject {
 
-    private final String deckName;
+    private final Number deckId;
     private final boolean selected;
     private final String gameUUID;
 }

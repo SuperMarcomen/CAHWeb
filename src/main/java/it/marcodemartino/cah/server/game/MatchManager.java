@@ -11,29 +11,35 @@ import java.util.stream.IntStream;
 public class MatchManager {
 
     private final Map<UUID, Match> uuidToMatch;
-    private final Map<UUID, List<String>> deckNamesForMatches;
+    private final Map<UUID, List<Number>> deckIdsForMatches;
     private final DeckRepository deckRepository;
 
     public MatchManager(DeckRepository deckRepository) {
         this.deckRepository = deckRepository;
         uuidToMatch = new HashMap<>();
-        deckNamesForMatches = new HashMap<>();
+        deckIdsForMatches = new HashMap<>();
     }
 
-    public List<String> getDecksForMatch(UUID gameUUID) {
-        return deckNamesForMatches.get(gameUUID);
+    public List<Number> getDecksForMatch(UUID gameUUID) {
+        return deckIdsForMatches.get(gameUUID);
     }
 
-    public void addDeckToMatch(UUID mathUUID, String deckName) {
-        deckNamesForMatches.get(mathUUID).add(deckName);
+    public void addDeckToMatch(UUID mathUUID, Number deckId) {
+        deckIdsForMatches.get(mathUUID).add(deckId);
     }
 
-    public void removeDeckFromMatch(UUID mathUUID, String deckName) {
-        deckNamesForMatches.get(mathUUID).remove(deckName);
+    public void removeDeckFromMatch(UUID mathUUID, Number deckId) {
+        deckIdsForMatches.get(mathUUID).remove(deckId);
     }
 
     public Match getMatchFromId(UUID matchUUID) {
         return uuidToMatch.get(matchUUID);
+    }
+
+    public void startMatch(UUID matchUUID) {
+        Match match = uuidToMatch.get(matchUUID);
+        //match.
+
     }
 
     public UUID createMatch(UUID playerUUID) {
@@ -41,7 +47,7 @@ public class MatchManager {
         match.addPlayer(playerUUID);
         UUID gameUUID = UUID.randomUUID();
         uuidToMatch.put(gameUUID, match);
-        deckNamesForMatches.put(gameUUID, new ArrayList<>());
+        deckIdsForMatches.put(gameUUID, new ArrayList<>());
         return gameUUID;
     }
 

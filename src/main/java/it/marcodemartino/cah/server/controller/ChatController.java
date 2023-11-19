@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
@@ -22,21 +21,23 @@ public class ChatController {
     private final UserService userService;
     private final MatchManager matchManager;
 
-    public ChatController(SimpMessagingTemplate messagingTemplate, UserService userService, MatchManager matchManager) {
+    public ChatController(UserService userService, MatchManager matchManager) {
         this.userService = userService;
         this.matchManager = matchManager;
     }
+
+
 
     @MessageMapping("/choose_decks/game_id/{id}")
     @SendTo("/queue/choose_decks/game_id/{id}")
     public ChoosenDeckObject sendMessage(ChoosenDeckObject choosenDeckObject) {
         UUID mathUUID = UUID.fromString(choosenDeckObject.getGameUUID());
         if (choosenDeckObject.isSelected()) {
-            matchManager.addDeckToMatch(mathUUID, choosenDeckObject.getDeckName());
+            matchManager.addDeckToMatch(mathUUID, choosenDeckObject.getDeckId());
         } else {
-            matchManager.removeDeckFromMatch(mathUUID, choosenDeckObject.getDeckName());
+            matchManager.removeDeckFromMatch(mathUUID, choosenDeckObject.getDeckId());
         }
-        logger.info(choosenDeckObject.getDeckName(), choosenDeckObject.isSelected());
+        logger.info("Deck with id {} has selection status: {}", choosenDeckObject.getDeckId(), choosenDeckObject.isSelected());
         return choosenDeckObject;
     }
 

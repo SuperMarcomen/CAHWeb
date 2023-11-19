@@ -2,10 +2,16 @@ import {broadcastDeckSelection} from "./communication.js";
 
 const decksForm = document.getElementById("choose_decks_form");
 const gameIdText = document.getElementById("game_id_text");
+const startButton = document.getElementById("start_game_button");
 var selectedDecks;
 
 export function setSelectedDecks(newSelectedDecks) {
     selectedDecks = newSelectedDecks;
+}
+
+
+startButton.onclick = function () {
+
 }
 
 export function init() {
@@ -20,22 +26,21 @@ export function init() {
         .then((response) => response.json())
         .then((json) => {
             for (const key of Object.keys(json)) {
-                const {name, whiteCardAmount, blackCardAmount, official} = json[key];
+                const {id, name, whiteCardAmount, blackCardAmount, official} = json[key];
 
                 // Create a new inputCheckbox and label for each deck
                 const inputCheckbox = document.createElement("input");
                 inputCheckbox.type = "checkbox";
                 inputCheckbox.name = name;
-                inputCheckbox.id = name;
+                inputCheckbox.id = 'deck_' + id;
                 inputCheckbox.classList.add("deck_checkbox");
 
                 const label = document.createElement("label");
-                label.htmlFor = name;
+                label.htmlFor = 'deck_' + id;
                 label.innerText = name;
 
                 inputCheckbox.addEventListener('change', e => {
-                    broadcastDeckSelection(name, e.target.checked);
-                    console.log("hi");
+                    broadcastDeckSelection(id, e.target.checked);
                 });
 
                 const cloneContainer = document.createElement("div");
@@ -46,9 +51,10 @@ export function init() {
                 decksForm.appendChild(cloneContainer);
             }
 
-            for (let deckName of selectedDecks) {
-                console.log(deckName);
-                const checkBox = document.getElementById(deckName);
+            if (!selectedDecks) return;
+            for (let deckId of selectedDecks) {
+                console.log(deckId);
+                const checkBox = document.getElementById('deck_' + deckId);
                 checkBox.checked = true;
             }
         });

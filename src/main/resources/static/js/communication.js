@@ -18,9 +18,9 @@ function onConnect() {
     });
 }
 
-export function broadcastDeckSelection(deckName, selected) {
+export function broadcastDeckSelection(deckId, selected) {
     console.log("Broadcast sent");
-    stompClient.send("/game/choose_decks/game_id/" + sessionStorage.getItem("game_uuid"), {}, JSON.stringify({deckName, selected, gameUUID}));
+    stompClient.send("/game/choose_decks/game_id/" + sessionStorage.getItem("game_uuid"), {}, JSON.stringify({deckId, selected, gameUUID}));
 }
 
 export function joinGameWithUsername(username) {
@@ -40,7 +40,7 @@ export function joinGameWithUsername(username) {
         const gameUUID = sessionStorage.getItem("game_uuid");
         stompClient.subscribe('/queue/choose_decks/game_id/' + gameUUID, function (response) {
             const {deckName, selected} = JSON.parse(response.body);
-            const checkBox = document.getElementById(deckName);
+            const checkBox = document.getElementById('deck_' + deckName);
             checkBox.checked = selected;
         });
 
@@ -61,7 +61,7 @@ export function loginWithUsername(username) {
 
         stompClient.subscribe('/queue/choose_decks/game_id/' + gameUUID, function (response) {
             const {deckName, selected} = JSON.parse(response.body);
-            const checkBox = document.getElementById(deckName);
+            const checkBox = document.getElementById('deck_' + deckName);
             checkBox.checked = selected;
         });
         init();
